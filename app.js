@@ -4,24 +4,23 @@ const port = 3000;
 
 app.use(express.json());
 
-// База товаров
+
 let products = [
     { id: 1, name: 'Смартфон', price: 29990 },
     { id: 2, name: 'Ноутбук', price: 59990 }
 ];
 
-// Получить все товары
+
 app.get('/products', (req, res) => {
     res.json(products);
 });
 
-// Получить товар по ID
 app.get('/products/:id', (req, res) => {
     const product = products.find(p => p.id == req.params.id);
     res.json(product);
 });
 
-// Добавить товар
+
 app.post('/products', (req, res) => {
     const { name, price } = req.body;
     const newProduct = { id: Date.now(), name, price };
@@ -29,7 +28,7 @@ app.post('/products', (req, res) => {
     res.status(201).json(newProduct);
 });
 
-// Редактировать товар
+
 app.patch('/products/:id', (req, res) => {
     const product = products.find(p => p.id == req.params.id);
     const { name, price } = req.body;
@@ -38,7 +37,7 @@ app.patch('/products/:id', (req, res) => {
     res.json(product);
 });
 
-// Удалить товар
+
 app.delete('/products/:id', (req, res) => {
     products = products.filter(p => p.id != req.params.id);
     res.send('Ok');
